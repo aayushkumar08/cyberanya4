@@ -57,7 +57,7 @@ if (data.success==true) {
             text:`Account creation successfull , Login now`,
             showConfirmButton:true
         }).then(() => {
-  window.location.href = "/login"; // redirect here
+  window.location.href = "login.html"; // redirect here
 });
        
     }  
@@ -97,7 +97,7 @@ async function sendOtp(){
 
         });
     if(emailid.value){
-    const res = await fetch("http://localhost:3000/signup/sendotp",{
+    const res = await fetch("https://tools.atrox.in/signup/sendotp",{
         method:"post",
         headers:{
             "content-type":"application/json"
@@ -237,3 +237,4 @@ let res;
     
 
 }
+
