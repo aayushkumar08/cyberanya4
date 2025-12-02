@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup - CyberAnya</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gray-100">
+
+  <div class="bg-white p-8 rounded-2xl shadow-md w-96">
+    <h2 class="text-2xl font-bold mb-4 text-center">Create Account</h2>
+
+
+
+    <form id="signupform">
+      <input
+        type="text"
+        id="fullname"
+        placeholder="Full name"
+        class="w-full p-2 mb-3 border rounded"
+        required
+      />
+            <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        class="w-full p-2 mb-3 border rounded"
+        required
+      />
+      <button
+      type="button"
+      id="sbtn"
+      onclick="sendOtp()"
+        class="w-[78px]  bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+       >Send OTP</button>
+             
+            <input
+        type="number"
+        id="otp"
+        placeholder="Enter email otp"
+        class="w-[154px] p-2 mb-3 border rounded"
+        required
+      />
+
+           <button
+           id="vbtn"
+           onclick="verifyOtp()"
+           type="button"
+        class="w-[78px] bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+       >Verify OTP</button>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        class="w-full p-2 mb-3 border rounded"
+        required
+      />
+
+      <button
+        type="submit"
+        id="signupbtn"
+        disabled
+        class="w-full bg-gray-500 text-white py-2 rounded  transition"
+      >
+        Sign Up
+      </button>
+    </form>
+
+
+
+
+    <p id="message" class="text-center text-sm text-gray-600 mt-3"></p>
+
+    <p class="text-center mt-4 text-sm">
+      Already have an account?
+      <span
+        class="text-blue-600 hover:underline cursor-pointer"
+        onclick="window.location.href='/login'"
+      >
+        Log In
+      </span>
+    </p>
+  </div>
+
+  <!-- JavaScript Logic -->
+  
+  
+  
+  <!-- <script>
+    const form = document.getElementById("signupForm");
+    const messageBox = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        messageBox.textContent = data.message;
+
+        if (res.ok) {
+          window.location.href = `/verify-otp?email=${encodeURIComponent(email)}`;
+        }
+      } catch (err) {
+        messageBox.textContent = "Signup failed. Try again.";
+      }
+    });
+  </script> -->
+<script src="/main.js"></script>
+</body>
+</html>
