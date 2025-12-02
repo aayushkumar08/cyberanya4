@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+
+  <style>
+    body {
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #fff;
+      padding: 30px;
+      width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #16a34a;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #15803d;
+    }
+
+    .links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .links span {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+
+  <script>
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        document.getElementById("message").innerText = data.message;
+
+        if (data.ok) {
+          localStorage.setItem("auth", "true");
+          window.location.href = "/dashboard"; 
+          
+        }
+
+        if (!data.ok) {
+          localStorage.setItem("auth", "false");
+
+        }
+        
+
+      } catch (error) {
+        document.getElementById("message").innerText = "Login failed";
+      }
+    }
+
+    function goSignup() {
+      window.location.href = "/signup";
+    }
+
+    function goForgot() {
+      window.location.href = "/login/forgetpassword";
+    }
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <h2 style="text-align: center; margin-bottom: 15px;">Login</h2>
+
+    <form onsubmit="handleLogin(event)">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="message" class="message"></p>
+
+    <div class="links">
+      <span onclick="goSignup()">Create Account</span>
+     <!-- <span onclick="goForgot()">Forgot Password?</span> -->
+    </div>
+  </div>
+</body>
+</html>
