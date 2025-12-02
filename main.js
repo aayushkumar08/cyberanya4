@@ -23,7 +23,7 @@ console.log("submit clicked");
 
      if(email.value){
 
-    const res = await fetch("http://localhost:3000/signup",{
+    const res = await fetch("https://tools.atrox.in/signup",{
         method:"post",
         headers:{
             "content-type":"application/json"
@@ -235,4 +235,5 @@ let res;
     
    } 
     
+
 }
