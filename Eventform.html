@@ -9,6 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
     async function submitForm(event) {
       event.preventDefault();
 
@@ -30,7 +32,7 @@
 
 
       try {
-        const res = await fetch("/eventform", {
+        const res = await fetch("https://tools.atrox.in/eventform", {
           method: "POST",
           body: formData,
         });
@@ -40,22 +42,24 @@
 
         if (data.code == "ald") {
           localStorage.setItem("code", "ald");
+      
 
           Swal.fire({
             icon: "info",
             title: "Already Registered",
             text: data.message,
-          }).then(() => (window.location.href = "/dashboard"));
+          }).then(() => (window.location.href = "dashboard.html"));
           return;
         }
 
-        localStorage.setItem("code", "ald");
 if(data.code=="done"){
+          localStorage.setItem("user", JSON.stringify(data.user));
+
         Swal.fire({
           icon: "success",
           title: "Registration Successful",
           text: `Registration submitted successfully!`,
-        }).then(() => (window.location.href = "/dashboard"));
+        }).then(() => (window.location.href = "dashboard.html"));
       }
         formElem.reset();
       } catch (error) {
@@ -83,7 +87,7 @@ if(data.code=="done"){
           type="email"
           placeholder="Email"
           readonly
-          value="<%= email %>"
+          
           class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100"
         />
 
@@ -92,7 +96,7 @@ if(data.code=="done"){
           type="text"
           placeholder="Full Name"
           readonly
-          value="<%= fullname %>"
+          id="fullname"
           class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100"
         />
 
@@ -121,9 +125,7 @@ if(data.code=="done"){
         >
           <option value="">Select Semester</option>
           <option value="1st">1st Semester</option>
-          <option value="2nd">2nd Semester</option>
           <option value="3rd">3rd Semester</option>
-          <option value="4th">4th Semester</option>
           <option value="5th">5th Semester</option>
         </select>
 
@@ -144,7 +146,7 @@ if(data.code=="done"){
     </label>
 
     <label  class="flex items-center gap-2">
-      <input disabled id="wgame1" type="radio" name="wgame" value="FREEFIREMAX" class="w-4 h-4" />
+      <input disabled id="wgame1" type="radio" name="wgame" value="FREE FIR EMAX" class="w-4 h-4" />
       <span>Free Fire Max</span>
     </label>
 
@@ -222,6 +224,16 @@ if(data.code=="done"){
   });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        document.getElementById("email").value = user.email || "";
+        document.getElementById("fullname").value = user.fullname || "";
+    }
+});
+</script>
 
 </body>
 </html>
