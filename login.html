@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     body {
@@ -72,6 +73,18 @@
   <script>
     async function handleLogin(event) {
       event.preventDefault();
+  Swal.fire({
+            icon:"info",
+            title:"Please wait loging...",
+            text:`Loging to your account`,
+            showConfirmButton:false,
+              allowOutsideClick: false,
+
+               didOpen: () => {
+                 Swal.showLoading();
+                }
+
+        });
 
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -135,4 +148,5 @@
   </div>
 </body>
 </html>
+
 
