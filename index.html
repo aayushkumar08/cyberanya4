@@ -216,17 +216,26 @@
 
   <!-- ---------- Gallery ---------- -->
  <section id="gallery" class="py-20 bg-white text-center">
-    <h2 class="text-4xl font-bold text-indigo-700 mb-8">Event Gallery</h2>
+  <h2 class="text-4xl font-bold text-indigo-700 mb-8">Event Gallery</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4">
-      <img src="https://source.unsplash.com/random/800x600?tech,1" class="rounded-2xl shadow-md object-cover h-56" />
-      <img src="https://source.unsplash.com/random/800x600?tech,2" class="rounded-2xl shadow-md object-cover h-56" />
-      <img src="https://source.unsplash.com/random/800x600?tech,3" class="rounded-2xl shadow-md object-cover h-56" />
-      <img src="https://source.unsplash.com/random/800x600?tech,4" class="rounded-2xl shadow-md object-cover h-56" />
-      <img src="https://source.unsplash.com/random/800x600?tech,5" class="rounded-2xl shadow-md object-cover h-56" />
-      <img src="https://source.unsplash.com/random/800x600?tech,6" class="rounded-2xl shadow-md object-cover h-56" />
+  <div class="relative max-w-6xl mx-auto px-4">
+    <!-- Slider Container -->
+    <div id="slider" class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4">
+      <img src="https://source.unsplash.com/random/800x600?tech,1" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
+      <img src="https://source.unsplash.com/random/800x600?tech,2" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
+      <img src="https://source.unsplash.com/random/800x600?tech,3" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
+      <img src="https://source.unsplash.com/random/800x600?tech,4" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
+      <img src="https://source.unsplash.com/random/800x600?tech,5" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
+      <img src="https://source.unsplash.com/random/800x600?tech,6" class="rounded-2xl shadow-md object-cover h-56 flex-shrink-0 w-80 snap-center" />
     </div>
-  </section>
+
+    <!-- Slider Buttons -->
+    <button id="prev" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-indigo-700 text-white p-2 rounded-full shadow-lg hover:bg-indigo-800 transition">
+      &#8592;
+    </button>
+    <button id="next" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-indigo-700 text-white p-2 rounded-full shadow-lg hover:bg-indigo-800 transition">
+      &#8594;
+    </button>
 
   <!-- ---------- Contact ---------- -->
   <section id="contact" class="py-16 bg-indigo-800 text-white px-6">
@@ -314,12 +323,27 @@
       document.getElementById("minutes").innerHTML = Math.floor((diff / 1000 / 60) % 60);
       document.getElementById("seconds").innerHTML = Math.floor((diff / 1000) % 60);
     }, 1000);
+
+    const slider = document.getElementById('slider');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+
+  const scrollAmount = 300; // amount to scroll per click
+
+  nextBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  prevBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
   </script>
 
   <script src="/main.js"></script>
 
 </body>
 </html>
+
 
 
 
