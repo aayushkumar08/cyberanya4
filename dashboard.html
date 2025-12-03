@@ -14,21 +14,21 @@
 <body class="bg-gray-100">
 
   <div class="flex min-h-screen">
-
-    <!-- Sidebar (hidden on mobile) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-xl p-6 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-50">
+    
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-xl p-6 flex flex-col">
       <h2 class="text-2xl font-bold text-indigo-600 mb-8">Dashboard</h2>
 
       <nav class="flex flex-col gap-4">
-        <a 
-          href="Eventform.html"
+        <a id="evnt"
+          href="/Eventform"
           class="flex items-center gap-3 text-gray-700 hover:text-indigo-600"
         >
           <i data-lucide="calendar"></i> Event Registration
         </a>
 
         <a 
-          href="activity.html"
+          href="/activity"
           class="flex items-center gap-3 text-gray-700 hover:text-indigo-600"
         >
           <i data-lucide="clipboard-pen"></i> Activity
@@ -43,25 +43,55 @@
       </button>
     </aside>
 
-    <!-- Mobile Header -->
-    <header class="md:hidden fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between p-4 z-40">
-      <h2 class="text-xl font-bold text-indigo-600">Dashboard</h2>
-      <button id="menu-btn" class="p-2 rounded-md bg-gray-100 hover:bg-gray-200">
-        <i data-lucide="menu"></i>
-      </button>
-    </header>
-
-    <!-- Overlay for mobile menu -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
-
     <!-- Main Content -->
-    <main class="flex-1 p-10 md:ml-64 mt-16 md:mt-0">
+    <main class="flex-1 p-10">
       <div id="content">
+        <h1 id="fullname" class="text-3xl font-bold text-gray-700"></h1>
         <h1 class="text-3xl font-bold text-gray-700">Welcome to Dashboard</h1>
         <p class="mt-2 text-gray-600">Select an option from the sidebar.</p>
       </div>
-    </main>
 
+<div id="ticket" class="relative w-80 bg-gray-900 text-gray-100 rounded-2xl p-5 shadow-[0_0_20px_rgba(0,255,255,0.4)] border border-cyan-400/40">
+
+  <!-- Microchip corner decoration -->
+  <div class="absolute top-0 left-0 w-10 h-10 border-t-4 border-l-4 border-cyan-400 rounded-tl-xl"></div>
+  <div class="absolute top-0 right-0 w-10 h-10 border-t-4 border-r-4 border-cyan-400 rounded-tr-xl"></div>
+
+  <h2 class="text-center text-cyan-300 text-2xl font-extrabold tracking-wide mb-1">CYBERANYA 4.0</h2>
+  <p class="text-center text-cyan-200/80 text-xs uppercase tracking-widest mb-4">Technical Access Pass</p>
+
+  <!-- Divider -->
+  <div class="border-t border-cyan-500/30 mb-4"></div>
+
+  <!-- Name -->
+  <p id="name" class="text-xl font-bold text-cyan-100 text-center mb-3"></p>
+
+  <div class="text-sm text-gray-300 space-y-1">
+    <p><strong class="text-cyan-300">Roll no. :</strong> <span id="roll"></span></p>
+    <p><strong class="text-cyan-300">Semester :</strong> <span id="semester"></span> sem</p>
+    <p><strong class="text-cyan-300">Activities :</strong> <span id="activity"></span>...</p>
+    <p><strong class="text-cyan-300">Email :</strong> <span id="email"></span></p>
+  </div>
+
+  <!-- QR -->
+  <div class="flex justify-center mt-5">
+    <div class="border-2 border-cyan-400/60 rounded-xl p-2 shadow-[0_0_10px_rgba(0,255,255,0.5)] bg-black/40">
+      <img id="qr" class="w-28 h-28">
+    </div>
+  </div>
+
+  <!-- Metadata strip -->
+  <div class="mt-5 text-center text-[10px] text-cyan-300/70 tracking-widest">
+    ENTRY AUTH | SECURE TOKEN VERIFIED
+  </div>
+
+</div>
+
+
+      
+
+
+    </main>
   </div>
 
   <script>
@@ -71,38 +101,56 @@
     // Logout function
     function logout() {
       localStorage.removeItem("token");
-      window.location.href = "login.html";
+      window.location.href = "/login";
+    }
+  </script>
+<script>
+
+const luser = JSON.parse(localStorage.getItem("user"));
+
+
+  const user = {
+    name: luser.fullname,
+    roll:luser.roll,
+    semester: luser.semester,
+    activity: luser.activities,
+    email: luser.email
+  };
+
+  // Fill ticket text
+  document.getElementById("name").innerText = user.name;
+  document.getElementById("roll").innerText = user.roll;
+  document.getElementById("semester").innerText = user.semester;
+  document.getElementById("activity").innerText = user.activity;
+  document.getElementById("email").innerText = user.email;
+
+  // Auto QR
+  const qrData = `${user.email}`;
+  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
+
+  document.getElementById("qr").src = qrURL;
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("fullname").innerText=user.fullname;
+
+const ticket = document.getElementById("ticket")
+    if (user.utrnumber=="") {
+        ticket.style.display="none";
+        
     }
 
-    // Mobile sidebar toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
+    if (user.utrnumber!=="") {
+        ticket.style.display="block";
+        document.getElementById("evnt").style.display="none";
+        
+    }
 
-    menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-      overlay.classList.toggle('hidden');
-    });
-
-    overlay.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      overlay.classList.add('hidden');
-    });
-
-    // Automatically close sidebar on window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.add('hidden');
-      } else {
-        sidebar.classList.add('-translate-x-full');
-      }
-    });
-  </script>
+});
+</script>
+v
 
 </body>
 </html>
-
-
-
-
