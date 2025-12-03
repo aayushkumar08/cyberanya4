@@ -175,7 +175,7 @@ async function verifyOtp(){
 let res;
 
     if(emailotp.value){
-     res = await fetch("/signup/verifyotp",{
+     res = await fetch("https://tools.atrox.in/signup/verifyotp",{
         method:"post",
         headers:{
             "content-type":"application/json"
@@ -237,4 +237,5 @@ let res;
     
 
 }
+
 
