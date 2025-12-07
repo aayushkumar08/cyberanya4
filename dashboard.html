@@ -59,6 +59,9 @@
 
   <h2 class="text-center text-cyan-300 text-2xl font-extrabold tracking-wide mb-1">CYBERANYA 4.0</h2>
   <p class="text-center text-cyan-200/80 text-xs uppercase tracking-widest mb-4">Technical Access Pass</p>
+  <p class="text-center text-cyan-200/80 text-xs uppercase tracking-widest mb-4">Token : <span id="token"></span></p>
+  
+  
 
   <!-- Divider -->
   <div class="border-t border-cyan-500/30 mb-4"></div>
@@ -118,6 +121,8 @@ const luser = JSON.parse(localStorage.getItem("user"));
   };
 
   // Fill ticket text
+  document.getElementById("token").innerText = user.id;
+  
   document.getElementById("name").innerText = user.name;
   document.getElementById("roll").innerText = user.roll;
   document.getElementById("semester").innerText = user.semester;
@@ -153,6 +158,7 @@ const ticket = document.getElementById("ticket")
 
 </body>
 </html>
+
 
 
 
