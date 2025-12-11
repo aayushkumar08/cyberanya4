@@ -125,7 +125,7 @@ if (data.aemail==true) {
 else if(!data.aemail){
 
         Swal.fire({
-            icon:"success",
+            icon:"error",
             title:data.message,
             text:`Check your email ${data.oemail}`
         });
@@ -237,5 +237,6 @@ let res;
     
 
 }
+
 
 
