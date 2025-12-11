@@ -115,7 +115,7 @@ if (data.aemail==true) {
     console.log(data);
     
         Swal.fire({
-            icon:"error",
+            icon:"success",
             title:data.message,
             text:`Your email ${data.oemail}`
         });
@@ -237,6 +237,7 @@ let res;
     
 
 }
+
 
 
 
