@@ -91,11 +91,11 @@
     <h2 class="text-2xl md:text-4xl font-bold text-indigo-700 mb-6">Event Starts In</h2>
     <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xl md:text-2xl font-bold">
       <div class="bg-white shadow-lg px-4 md:px-6 py-3 md:py-4 rounded-2xl text-indigo-700 min-w-[80px] text-center">
-        <p id="days" class="text-2xl md:text-3xl">9</p>
+        <p id="days" class="text-2xl md:text-3xl">5</p>
         <p class="text-xs md:text-sm uppercase text-gray-500">days</p>
       </div>
       <div class="bg-white shadow-lg px-4 md:px-6 py-3 md:py-4 rounded-2xl text-indigo-700 min-w-[80px] text-center">
-        <p id="hours" class="text-2xl md:text-3xl">14</p>
+        <p id="hours" class="text-2xl md:text-3xl">3</p>
         <p class="text-xs md:text-sm uppercase text-gray-500">hours</p>
       </div>
       <div class="bg-white shadow-lg px-4 md:px-6 py-3 md:py-4 rounded-2xl text-indigo-700 min-w-[80px] text-center">
@@ -106,6 +106,10 @@
         <p id="seconds" class="text-2xl md:text-3xl">0</p>
         <p class="text-xs md:text-sm uppercase text-gray-500">seconds</p>
       </div>
+      <p id="countdown-text" class="mt-6 text-lg font-semibold text-indigo-600">
+  Cyberanya starts on 24 Dec, 10:00 AM
+</p>
+
     </div>
   </section>
 
@@ -319,39 +323,39 @@
 
 
     // Countdown Timer
-    const eventDate = new Date("2025-12-15T00:00:00");
+   <script>
+  const eventDate = new Date("2025-12-24T10:00:00");
 
-    setInterval(() => {
-      const now = new Date();
-      const diff = eventDate - now;
+  const timer = setInterval(() => {
+    const now = new Date();
+    const diff = eventDate - now;
 
-      if (diff <= 0) return;
+    if (diff <= 0) {
+      clearInterval(timer);
+      document.getElementById("days").innerHTML = 0;
+      document.getElementById("hours").innerHTML = 0;
+      document.getElementById("minutes").innerHTML = 0;
+      document.getElementById("seconds").innerHTML = 0;
+      return;
+    }
 
-      document.getElementById("days").innerHTML = Math.floor(diff / (1000 * 60 * 60 * 24));
-      document.getElementById("hours").innerHTML = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      document.getElementById("minutes").innerHTML = Math.floor((diff / 1000 / 60) % 60);
-      document.getElementById("seconds").innerHTML = Math.floor((diff / 1000) % 60);
-    }, 1000);
+    document.getElementById("days").innerHTML =
+      Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerHTML =
+      Math.floor((diff / (1000 * 60 * 60)) % 24);
+    document.getElementById("minutes").innerHTML =
+      Math.floor((diff / (1000 * 60)) % 60);
+    document.getElementById("seconds").innerHTML =
+      Math.floor((diff / 1000) % 60);
+  }, 1000);
 
-    const slider = document.getElementById('slider');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-
-  const scrollAmount = 300; // amount to scroll per click
-
-  nextBtn.addEventListener('click', () => {
-    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
-
-  prevBtn.addEventListener('click', () => {
-    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
   </script>
 
   <script src="/main.js"></script>
 
 </body>
 </html>
+
 
 
 
